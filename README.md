@@ -12,7 +12,7 @@ Designed and implemented Spring Microservices for scalability and flexibility.
 Collaborated with a cross-functional team, ensuring successful project delivery.
 
 Quiz Microsrvices project:
-Led the development of a Quiz website using Java, MySQL, Spring Boot, Rest API, Spring Microservices,, and Git.
+Led the development of a Quiz website using Java, MySQL, Spring Boot, Rest API, Spring Microservices, Eureka Server, Open fiege, and Git.
 Designed and implemented Spring Microservices for scalability and flexibility.
 Collaborated with a cross-functional team, ensuring successful project delivery.
 
