@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>nav bar</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top d-flex ">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">School Management</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/student}">Students</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/teacher}">Teachers</a></li>
+					
+				</ul>
+<div class="d-flex flex-row justify-content-end" style="z-index: 1080;">
+            <div class="btn-group">
+                <!-- Check if the user is authenticated -->
+                <div sec:authorize="isAuthenticated()">
+                    <!-- Render the Logout button -->
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-outline-primary"
+                                style="position: fixed; top: 0; right: 125px; margin: 10px; border-radius: 10px;">Logout</button>
+                    </form>
+                </div>
+                <!-- Check if the user is not authenticated -->
+                <div sec:authorize="isAnonymous()">
+                    <!-- Render the Login button -->
+                    <a th:href="@{/login}" class="btn btn-outline-primary"
+                       style="position: fixed; top: 0; right: 50px; margin: 10px; border-radius: 10px;">Login</a>
+                </div>
+                <!-- Always render the Register button -->
+                <a th:href="@{/register}" class="btn btn-outline-primary"
+                   style="position: fixed; top: 0; right: 210px; margin: 10px; border-radius: 10px;">Register</a>
+            </div>
+        </div>
+			</div>
+		</div>
+	</nav>
+</body>
+</html>
