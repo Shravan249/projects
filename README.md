@@ -7,8 +7,12 @@ Implemented Spring Security for secure user authentication and authorization.
 
 
 Quiz Monolithic Project (REST API):
-Led the development of a Quiz website using Java, MySQL, Spring Boot, Rest API, Spring Microservices, and Git.
+Led the development of a Quiz website using Java, MySQL, Spring Boot, Rest API, and Git.
 Designed and implemented Spring Microservices for scalability and flexibility.
 Collaborated with a cross-functional team, ensuring successful project delivery.
 
-Microservices is QUIZ project
+Quiz Microsrvices project:
+Led the development of a Quiz website using Java, MySQL, Spring Boot, Rest API, Spring Microservices,, and Git.
+Designed and implemented Spring Microservices for scalability and flexibility.
+Collaborated with a cross-functional team, ensuring successful project delivery.
+
