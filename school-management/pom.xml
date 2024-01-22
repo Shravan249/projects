@@ -11,7 +11,7 @@
 	<groupId>com.visiontech</groupId>
 	<artifactId>student-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>student-management</name>
+	<name>school-management</name>
 	<description>App</description>
 	<properties>
 		<java.version>17</java.version>
@@ -61,6 +61,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<finalName>school-management</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
