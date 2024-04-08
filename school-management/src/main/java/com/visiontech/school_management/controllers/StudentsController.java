@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +24,13 @@ public class StudentsController {
 
 	@Autowired
 	private StudentsService studentsService;
-	
+
 	@Autowired
 	private UserService userService;
 
 	@GetMapping
-	public String getAllStudents(Model model,Principal pricipal) {
-		User user= userService.getUser(pricipal.getName());
+	public String getAllStudents(Model model, Principal pricipal) {
+		User user = userService.getUser(pricipal.getName());
 		List<Students> std = studentsService.getAllStudents();
 		model.addAttribute("students", std);
 		model.addAttribute("user", user);
@@ -46,59 +45,55 @@ public class StudentsController {
 	}
 
 	@GetMapping("/{rollNo}")
-	public String getStudentByID(@PathVariable long rollNo,Model model,Principal pricipal) throws Exception {
-		User user= userService.getUser(pricipal.getName());
+	public String getStudentByID(@PathVariable long rollNo, Model model, Principal pricipal) throws Exception {
+		User user = userService.getUser(pricipal.getName());
 		model.addAttribute("user", user);
 		Students student = studentsService.getStudentByRollNo(rollNo).get();
 		return "student";
 	}
-	
-	@GetMapping("/search")
-	public String searchStudent(@RequestParam(name = "rollNo", required = false) Long rollNo, Model model,Principal pricipal) throws Exception {
-	    if (rollNo == null) {
-	        // If 'rollNo' is null, redirect to the student listing page
-	        return "redirect:/student";
-	    }
 
-	    // Continue with the search logic if 'rollNo' is provided
-	    User user= userService.getUser(pricipal.getName());
+	@GetMapping("/search")
+	public String searchStudent(@RequestParam(name = "query", required = false) String query, Model model,
+			Principal pricipal) throws Exception {
+		 if (query == null || query.isEmpty()) {
+		        // If query is null or empty, redirect to the student listing page
+		        return "redirect:/student";
+		    }
+
+		User user = userService.getUser(pricipal.getName());
 		model.addAttribute("user", user);
-	    Students student = studentsService.getStudentByRollNo(rollNo).orElse(null);
-	    model.addAttribute("searchResult", student);
+		List<Students> students = studentsService.searchStudent(query);
+	    model.addAttribute("searchResult", students);
 	    return "student";
 	}
 
-
-
 	@PostMapping("/create")
 	public String createStudent(@ModelAttribute("stddto") StudentsDTO stddto, RedirectAttributes ra) {
-	    studentsService.createStudent(stddto);
-	    ra.addFlashAttribute("message", "Added Successfully");
-	    return "redirect:/student";
+		studentsService.createStudent(stddto);
+		ra.addFlashAttribute("message", "Added Successfully");
+		return "redirect:/student";
 	}
-
 
 	@GetMapping("/update/{rollNo}")
 	public String update(@PathVariable Long rollNo, Model model) throws Exception {
-	    StudentsDTO sttdto = studentsService.updateStudent(rollNo);
-	    model.addAttribute("stddto", sttdto);
-	    return "update-student";
+		StudentsDTO sttdto = studentsService.updateStudent(rollNo);
+		model.addAttribute("stddto", sttdto);
+		return "update-student";
 	}
 
 	@PostMapping("/edit/{rollNo}")
-	public String updateStudent(@PathVariable Long rollNo, @ModelAttribute("stddto") StudentsDTO stddto, Model model,RedirectAttributes ra) {
+	public String updateStudent(@PathVariable Long rollNo, @ModelAttribute("stddto") StudentsDTO stddto, Model model,
+			RedirectAttributes ra) {
 		studentsService.editStudent(rollNo, stddto);
 		ra.addFlashAttribute("message", "Updated Successfully");
 		return "redirect:/student";
 	}
-	
+
 	@GetMapping("/delete/{rollNo}")
 	public String deleteStudent(@PathVariable Long rollNo, RedirectAttributes ra) {
 		studentsService.deleteStudentByRollNo(rollNo);
 		ra.addFlashAttribute("message", "Deleted Successfully");
 		return "redirect:/student";
 	}
-	
-	
 
 }

@@ -9,8 +9,10 @@ import com.visiontech.school_management.entites.dtos.StudentsDTO;
 public interface StudentsService {
 
 	List<Students> getAllStudents();
+	
+	Optional<Students> getStudentByRollNo(Long query) throws Exception;
 
-	Optional<Students> getStudentByRollNo(Long rollNo) throws Exception;
+	List<Students> searchStudent(String query) throws Exception;
 
 	Students createStudent(StudentsDTO stdDto);
 

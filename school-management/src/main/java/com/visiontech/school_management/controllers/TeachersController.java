@@ -54,14 +54,14 @@ public class TeachersController {
 	}
 
 	@GetMapping("/search")
-	public String searchTeacher(@RequestParam(name = "tid", required = false) Long tid, Model model, Principal pricipal)
+	public String searchTeacher(@RequestParam(name = "query", required = false) String query, Model model, Principal pricipal)
 			throws Exception {
-		if (tid == null) {
+		if (query == null || query.isEmpty()) {
 			// If 'rollNo' is null, redirect to the student listing page
 			return "redirect:/teacher";
 		}
 		// Continue with the search logic if 'rollNo' is provided
-		Teachers teacher = teacherService.getTeacherByTid(tid).orElse(null);
+		List<Teachers> teacher=teacherService.searchTeachers(query);
 		model.addAttribute("searchResult", teacher);
 		User user = userService.getUser(pricipal.getName());
 		model.addAttribute("user", user);

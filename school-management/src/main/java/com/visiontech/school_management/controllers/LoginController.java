@@ -38,6 +38,11 @@ public class LoginController {
 	public String login() {
 		return "login-page";
 	}
+	
+	@GetMapping("/logout")
+	public String logout() {
+		return "login-page";
+	}
 
 	@GetMapping("/register")
 	public String register(@ModelAttribute("siginup") SignUpDto user) {

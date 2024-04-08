@@ -33,9 +33,9 @@ public class TeacherServiceImpl implements TeacherService {
 	public Teachers createTeacher(TeachersDTO teacherDto) {
 		Teachers teachers = new Teachers();
 		teachers.setTid(teacherDto.getTid());
-		teachers.setFirstName(teacherDto.getFirstName());
-		teachers.setLastName(teacherDto.getLastName());
-		teachers.setGender(teacherDto.getGender());
+		teachers.setFirstName(teacherDto.getFirstName().toLowerCase());
+		teachers.setLastName(teacherDto.getLastName().toLowerCase());
+		teachers.setGender(teacherDto.getGender().toLowerCase());
 		teachers.setMobileNumber(teacherDto.getMobileNumber());
 		teachers.setEmail(teacherDto.getEmail());
 		return teachersRepo.save(teachers);
@@ -46,9 +46,9 @@ public class TeacherServiceImpl implements TeacherService {
 		Teachers teachers = teachersRepo.findByTid(tid).get();
 		if (teachers != null) {
 			teachers.setTid(teacherDto.getTid());
-			teachers.setFirstName(teacherDto.getFirstName());
-			teachers.setLastName(teacherDto.getLastName());
-			teachers.setGender(teacherDto.getGender());
+			teachers.setFirstName(teacherDto.getFirstName().toLowerCase());
+			teachers.setLastName(teacherDto.getLastName().toLowerCase());
+			teachers.setGender(teacherDto.getGender().toLowerCase());
 			teachers.setMobileNumber(teacherDto.getMobileNumber());
 			teachers.setEmail(teacherDto.getEmail());
 
@@ -65,9 +65,9 @@ public class TeacherServiceImpl implements TeacherService {
 		TeachersDTO teacherDto = new TeachersDTO();
 
 		teacherDto.setTid(teachers.getTid());
-		teacherDto.setFirstName(teachers.getFirstName());
-		teacherDto.setLastName(teachers.getLastName());
-		teacherDto.setGender(teachers.getGender());
+		teacherDto.setFirstName(teachers.getFirstName().toLowerCase());
+		teacherDto.setLastName(teachers.getLastName().toLowerCase());
+		teacherDto.setGender(teachers.getGender().toLowerCase());
 		teacherDto.setMobileNumber(teachers.getMobileNumber());
 		teacherDto.setEmail(teachers.getEmail());
 
@@ -79,6 +79,12 @@ public class TeacherServiceImpl implements TeacherService {
 	public String deleteTeacherByTid(Long tid) {
 		teachersRepo.deleteByTid(tid);
 		return "Sucessfully Deleted";
+	}
+
+	@Override
+	public List<Teachers> searchTeachers(String query) {
+		
+		return teachersRepo.searchTeacher(query);
 	}
 
 }

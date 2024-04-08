@@ -12,6 +12,8 @@ public interface TeacherService {
 
 	Optional<Teachers> getTeacherByTid(Long tid) throws Exception;
 
+	List<Teachers> searchTeachers(String query);
+		
 	Teachers createTeacher(TeachersDTO teacherDto);
 
 	Teachers editTeacher(Long tid, TeachersDTO teacherDto);

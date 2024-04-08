@@ -25,19 +25,18 @@ public class StudentServiceImpl implements StudentsService {
 	}
 
 	@Override
-	public Optional<Students> getStudentByRollNo(Long rollNo) throws Exception {
-		Optional<Students> std = studentsRepo.findByRollNo(rollNo);
-		return std;
+	public List<Students> searchStudent(String query) throws Exception {
+		return studentsRepo.searchStudent(query);
 	}
 
 	@Override
 	public Students createStudent(StudentsDTO stdDto) {
 		Students std = new Students();
 		std.setRollNo(stdDto.getRollNo());
-		std.setFirstName(stdDto.getFirstName());
-		std.setLastName(stdDto.getLastName());
+		std.setFirstName(stdDto.getFirstName().toLowerCase());
+		std.setLastName(stdDto.getLastName().toLowerCase());
 		std.setEmail(stdDto.getEmail());
-		std.setGender(stdDto.getGender());
+		std.setGender(stdDto.getGender().toLowerCase());
 		return studentsRepo.save(std);
 	}
 
@@ -46,10 +45,10 @@ public class StudentServiceImpl implements StudentsService {
 		Students std = studentsRepo.findByRollNo(rollNo).get();
 		if (std != null) {
 			std.setRollNo(stdDto.getRollNo());
-			std.setFirstName(stdDto.getFirstName());
-			std.setLastName(stdDto.getLastName());
+			std.setFirstName(stdDto.getFirstName().toLowerCase());
+			std.setLastName(stdDto.getLastName().toLowerCase());
 			std.setEmail(stdDto.getEmail());
-			std.setGender(stdDto.getGender());
+			std.setGender(stdDto.getGender().toLowerCase());
 
 			return studentsRepo.save(std);
 		}
@@ -61,9 +60,9 @@ public class StudentServiceImpl implements StudentsService {
 		Students std = studentsRepo.findByRollNo(rollNo).get();
 		StudentsDTO stddto=new StudentsDTO();
 		stddto.setRollNo(std.getRollNo());
-		stddto.setFirstName(std.getFirstName());
-		stddto.setLastName(std.getLastName());
-		stddto.setGender(std.getGender());
+		stddto.setFirstName(std.getFirstName().toLowerCase());
+		stddto.setLastName(std.getLastName().toLowerCase());
+		stddto.setGender(std.getGender().toLowerCase());
 		stddto.setEmail(std.getEmail());
 		return stddto;
 	}
@@ -73,6 +72,12 @@ public class StudentServiceImpl implements StudentsService {
 	public String deleteStudentByRollNo(Long rollNo) {
 		studentsRepo.deleteByRollNo(rollNo);
 		return "Sucessfully Deleted";
+	}
+
+	@Override
+	public Optional<Students> getStudentByRollNo(Long rollNo) throws Exception {
+		
+		return studentsRepo.findByRollNo(rollNo);
 	}
 
 }

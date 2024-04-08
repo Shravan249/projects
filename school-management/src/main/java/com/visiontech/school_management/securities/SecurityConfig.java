@@ -35,14 +35,24 @@ public class SecurityConfig {
 		http.csrf(c -> c.disable())
 
 				.authorizeHttpRequests(
-						request -> request.requestMatchers("/","/register", "/css/**", "/js/**", "/images/**").permitAll()
-								.anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").loginProcessingUrl("/login")
+						request ->
+						request.requestMatchers("/","/register", "/css/**", "/js/**", "/images/**")
+						.permitAll()
+						.anyRequest().authenticated())
+				.formLogin(form -> 
+				form.loginPage("/login")
+				.loginProcessingUrl("/login")
 						// Use this ".successHandler(customSuccessHandler)" when u want to use custom pages based on Roles
-						.defaultSuccessUrl("/").permitAll())
-				.logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
-						.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
-						.permitAll());
+				.defaultSuccessUrl("/",true)
+				.permitAll())
+				.logout(form ->
+				form.invalidateHttpSession(true)
+				.clearAuthentication(true)
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login?logout")
+				.permitAll()).rememberMe(c->c.rememberMeParameter("remember-me")).httpBasic();
+		
+		
 
 		return http.build();
 
